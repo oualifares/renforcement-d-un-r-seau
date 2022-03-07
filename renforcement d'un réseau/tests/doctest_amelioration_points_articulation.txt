@@ -1,0 +1,49 @@
+Doctests pour la fonction amelioration_points_articulation; on ne vérifie ici que la
+disparition des points d'articulation, et pas la qualité des solutions.
+
+Vous devez avoir implémenté la classe Graphe et la fonction points_articulation.
+Rajoutez éventuellement ci-dessous les imports nécessaires:
+
+>>> from graphe import *
+>>> from fragilite import *
+
+Exemple de l'énoncé:
+
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefghijkl', [None] * 12))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('c', 'a', None), ('c', 'd', None), ('d', 'e', None),
+...      ('e', 'f', None), ('f', 'd', None), ('a', 'g', None), ('g', 'h', None), ('h', 'a', None),
+...      ('h', 'i', None), ('i', 'j', None), ('j', 'h', None), ('j', 'k', None), ('k', 'i', None),
+...      ('i', 'l', None), ('k', 'h', None)])
+>>> for u, v in amelioration_points_articulation(G):
+...     G.ajouter_arete(u, v, None)
+>>> len(points_articulation(G))
+0
+
+Exemple du livre d'Even:
+
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefg', [None] * 7))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('b', 'd', None), ('c', 'd', None), ('d', 'e', None),
+...      ('d', 'f', None), ('d', 'g', None), ('e', 'f', None), ('f', 'g', None)])
+>>> for u, v in amelioration_points_articulation(G):
+...     G.ajouter_arete(u, v, None)
+>>> len(points_articulation(G))
+0
+
+Exemple de Wikipedia:
+
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefghijklmn', [None] * 14))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('c', 'd', None), ('d', 'a', None), ('c', 'e', None),
+...      ('e', 'f', None), ('f', 'g', None), ('g', 'h', None), ('g', 'i', None), ('g', 'm', None),
+...      ('i', 'j', None), ('i', 'k', None), ('k', 'l', None), ('l', 'm', None), ('m', 'n', None),
+...      ('n', 'l', None)]
+... )
+>>> for u, v in amelioration_points_articulation(G):
+...     G.ajouter_arete(u, v, None)
+>>> len(points_articulation(G))
+0

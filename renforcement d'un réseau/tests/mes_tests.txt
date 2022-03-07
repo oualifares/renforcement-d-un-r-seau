@@ -1,0 +1,269 @@
+>>> from graphe import *
+>>> from ameliorations import *
+
+>>> ## Doctest pour la fonction charger_donnees
+
+Récupérer les données de la ligne de métro 14:
+
+Graphe.py
+
+>>> G = Graphe()
+>>> G.nb_sommets()
+0
+
+>>> G.nb_aretes()
+0
+
+>>> G.ajouter_sommet((1, "Sommet 1"))
+>>> G.ajouter_sommet((2, "Sommet 2"))
+>>> G.nb_sommets()
+2
+>>> sorted(G.sommets())
+[1, 2]
+
+>>> G.nom_sommet(1)
+'Sommet 1'
+
+>>> G.ajouter_arete(1, 2, "A1")
+>>> G.ajouter_arete(2, 1, "A1")
+>>> G.nb_aretes()
+1
+>>> G.voisins(1)
+{(2, 'A1')}
+
+
+>>> reseau = Graphe()
+>>> charger_donnees(reseau, "METRO_1.txt")
+
+>>> reseau.nb_sommets()
+25
+
+>>> reseau.nb_aretes()
+24
+
+>>> # Test de la fonction op_liste_stations
+>>> affiche_liste_stations(reseau)
+Argentine (2048)
+Bastille (2062)
+Bérault (2067)
+Champs-Elysées-Clémenceau (2025)
+Charles de Gaulle-Etoile (2028)
+Château de Vincennes (2035)
+Châtelet (1964)
+Concorde (1980)
+Esplanade de la Défense (1933)
+Franklin-Roosevelt (1945)
+Gare de Lyon (1955)
+George V (1961)
+Hôtel de Ville (1892)
+La Défense (Grande Arche) (1887)
+Les Sablons (Jardin d'acclimatation) (1856)
+Louvre-Rivoli (1864)
+Nation (1651)
+Palais-Royal (Musée du Louvre) (1773)
+Pont de Neuilly (1803)
+Porte Maillot (1755)
+Porte de Vincennes (1751)
+Reuilly-Diderot (1698)
+Saint-Mandé (1725)
+Saint-Paul (Le Marais) (1642)
+Tuileries (1688)
+<BLANKLINE>
+
+
+>>> # Test de la fonction op_ponts
+>>> affiche_ponts(reseau)
+Le reseau contient 24 ponts suivants :
+<BLANKLINE>
+- Argentine -- Charles de Gaulle-Etoile
+- Argentine -- Porte Maillot
+- Bastille -- Gare de Lyon
+- Bastille -- Saint-Paul (Le Marais)
+- Bérault -- Château de Vincennes
+- Bérault -- Saint-Mandé
+- Champs-Elysées-Clémenceau -- Concorde
+- Champs-Elysées-Clémenceau -- Franklin-Roosevelt
+- Charles de Gaulle-Etoile -- George V
+- Châtelet -- Hôtel de Ville
+- Châtelet -- Louvre-Rivoli
+- Concorde -- Tuileries
+- Esplanade de la Défense -- La Défense (Grande Arche)
+- Esplanade de la Défense -- Pont de Neuilly
+- Franklin-Roosevelt -- George V
+- Gare de Lyon -- Reuilly-Diderot
+- Hôtel de Ville -- Saint-Paul (Le Marais)
+- Les Sablons (Jardin d'acclimatation) -- Pont de Neuilly
+- Les Sablons (Jardin d'acclimatation) -- Porte Maillot
+- Louvre-Rivoli -- Palais-Royal (Musée du Louvre)
+- Nation -- Porte de Vincennes
+- Nation -- Reuilly-Diderot
+- Palais-Royal (Musée du Louvre) -- Tuileries
+- Porte de Vincennes -- Saint-Mandé
+
+
+>>> affiche_articulations(reseau)
+Le reseau contient les 23 points articulations suivants :
+<BLANKLINE>
+1 : Argentine
+2 : Bastille
+3 : Bérault
+4 : Champs-Elysées-Clémenceau
+5 : Charles de Gaulle-Etoile
+6 : Châtelet
+7 : Concorde
+8 : Esplanade de la Défense
+9 : Franklin-Roosevelt
+10 : Gare de Lyon
+11 : George V
+12 : Hôtel de Ville
+13 : Les Sablons (Jardin d'acclimatation)
+14 : Louvre-Rivoli
+15 : Nation
+16 : Palais-Royal (Musée du Louvre)
+17 : Pont de Neuilly
+18 : Porte Maillot
+19 : Porte de Vincennes
+20 : Reuilly-Diderot
+21 : Saint-Mandé
+22 : Saint-Paul (Le Marais)
+23 : Tuileries
+<BLANKLINE>
+
+
+>>> affiche_ameliorer_ponts(reseau)
+On peut éliminer tous les ponts du réseau en rajoutant les 1 arêtes suivantes:
+<BLANKLINE>
+La Défense (Grande Arche) -- Château de Vincennes
+
+Doctests pour la fonction ponts.
+
+Vous devez avoir implémenté la classe Graphe et la fonction ponts.
+Rajoutez éventuellement ci-dessous les imports nécessaires:
+
+>>> from graphe import *
+
+
+>>> # exemple de l'énoncé
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefghijkl', [None] * 12))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('c', 'a', None), ('c', 'd', None), ('d', 'e', None),
+...      ('e', 'f', None), ('f', 'd', None), ('a', 'g', None), ('g', 'h', None), ('h', 'a', None),
+...      ('h', 'i', None), ('i', 'j', None), ('j', 'h', None), ('j', 'k', None), ('k', 'i', None),
+...      ('i', 'l', None), ('k', 'h', None)])
+>>> sorted(map(sorted, ponts(G)))
+[['c', 'd'], ['i', 'l']]
+
+>>> # exemple du livre d'Even
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefg', [None] * 7))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('b', 'd', None), ('c', 'd', None), ('d', 'e', None),
+...      ('d', 'f', None), ('d', 'g', None), ('e', 'f', None), ('f', 'g', None)])
+>>> sorted(map(sorted, ponts(G)))
+[['a', 'b']]
+
+>>> # exemple de wikipedia
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefghijklmn', [None] * 14))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('c', 'd', None), ('d', 'a', None), ('c', 'e', None),
+...      ('e', 'f', None), ('f', 'g', None), ('g', 'h', None), ('g', 'i', None), ('g', 'm', None),
+...      ('i', 'j', None), ('i', 'k', None), ('k', 'l', None), ('l', 'm', None), ('m', 'n', None),
+...      ('n', 'l', None)]
+... )
+>>> sorted(map(sorted, ponts(G)))
+[['c', 'e'], ['e', 'f'], ['f', 'g'], ['g', 'h'], ['i', 'j']]
+
+Doctests pour la fonction points_articulation.
+
+Vous devez avoir implémenté la classe Graphe et la fonction points_articulation.
+Rajoutez éventuellement ci-dessous les imports nécessaires:
+
+>>> from graphe import *
+
+Exemple de l'énoncé:
+
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefghijkl', [None] * 12))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('c', 'a', None), ('c', 'd', None), ('d', 'e', None),
+...      ('e', 'f', None), ('f', 'd', None), ('a', 'g', None), ('g', 'h', None), ('h', 'a', None),
+...      ('h', 'i', None), ('i', 'j', None), ('j', 'h', None), ('j', 'k', None), ('k', 'i', None),
+...      ('i', 'l', None), ('k', 'h', None)])
+>>> sorted(points_articulation(G))
+['a', 'c', 'd', 'h', 'i']
+
+Exemple du livre d'Even:
+
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefg', [None] * 7))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('b', 'd', None), ('c', 'd', None), ('d', 'e', None),
+...      ('d', 'f', None), ('d', 'g', None), ('e', 'f', None), ('f', 'g', None)])
+>>> sorted(points_articulation(G))
+['b', 'd']
+
+Exemple de Wikipedia:
+
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefghijklmn', [None] * 14))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('c', 'd', None), ('d', 'a', None), ('c', 'e', None),
+...      ('e', 'f', None), ('f', 'g', None), ('g', 'h', None), ('g', 'i', None), ('g', 'm', None),
+...      ('i', 'j', None), ('i', 'k', None), ('k', 'l', None), ('l', 'm', None), ('m', 'n', None),
+...      ('n', 'l', None)]
+... )
+>>> sorted(points_articulation(G))
+['c', 'e', 'f', 'g', 'i']
+
+
+Doctests pour la fonction amelioration_points_articulation; on ne vérifie ici que la
+disparition des points d'articulation, et pas la qualité des solutions.
+
+Vous devez avoir implémenté la classe Graphe et la fonction points_articulation.
+Rajoutez éventuellement ci-dessous les imports nécessaires:
+
+>>> from graphe import *
+
+
+Exemple de l'énoncé:
+
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefghijkl', [None] * 12))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('c', 'a', None), ('c', 'd', None), ('d', 'e', None),
+...      ('e', 'f', None), ('f', 'd', None), ('a', 'g', None), ('g', 'h', None), ('h', 'a', None),
+...      ('h', 'i', None), ('i', 'j', None), ('j', 'h', None), ('j', 'k', None), ('k', 'i', None),
+...      ('i', 'l', None), ('k', 'h', None)])
+>>> for u, v in amelioration_points_articulation(G):
+...     G.ajouter_arete(u, v, None)
+>>> len(points_articulation(G))
+0
+
+Exemple du livre d'Even:
+
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefg', [None] * 7))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('b', 'd', None), ('c', 'd', None), ('d', 'e', None),
+...      ('d', 'f', None), ('d', 'g', None), ('e', 'f', None), ('f', 'g', None)])
+>>> for u, v in amelioration_points_articulation(G):
+...     G.ajouter_arete(u, v, None)
+>>> len(points_articulation(G))
+0
+
+Exemple de Wikipedia:
+
+>>> G = Graphe()
+>>> G.ajouter_sommets(zip('abcdefghijklmn', [None] * 14))
+>>> G.ajouter_aretes(
+...     [('a', 'b', None), ('b', 'c', None), ('c', 'd', None), ('d', 'a', None), ('c', 'e', None),
+...      ('e', 'f', None), ('f', 'g', None), ('g', 'h', None), ('g', 'i', None), ('g', 'm', None),
+...      ('i', 'j', None), ('i', 'k', None), ('k', 'l', None), ('l', 'm', None), ('m', 'n', None),
+...      ('n', 'l', None)]
+... )
+>>> for u, v in amelioration_points_articulation(G):
+...     G.ajouter_arete(u, v, None)
+>>> len(points_articulation(G))
+0

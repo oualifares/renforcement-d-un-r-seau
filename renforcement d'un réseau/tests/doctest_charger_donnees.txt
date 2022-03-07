@@ -1,0 +1,50 @@
+Doctests pour la fonction charger_donnees.
+
+Vous devez avoir implémenté la classe Graphe et la fonction charger_donnees.
+Rajoutez éventuellement ci-dessous les imports nécessaires:
+
+>>> from graphe import *
+>>> from fragilite import *
+
+Récupérer les données de la ligne de métro 14:
+
+>>> reseau = Graphe()
+>>> charger_donnees(reseau, "METRO_14.txt")
+
+Afficher les identifiants des sommets:
+
+>>> sorted(reseau.sommets())
+[1722, 1757, 1869, 1955, 1964, 2068, 1166824, 1166826, 1166828]
+
+Afficher les noms des sommets:
+
+>>> sorted(map(reseau.nom_sommet, reseau.sommets()))
+['Bercy', 'Bibliothèque-François Mitterrand', 'Châtelet', 'Cour Saint-Emilion', 'Gare de Lyon', 'Madeleine', 'Olympiades', 'Pyramides', 'Saint-Lazare']
+
+Afficher les arêtes:
+
+>>> sorted(reseau.aretes())  # doctest: +NORMALIZE_WHITESPACE
+[(1722, 1869, 'METRO_14'), (1757, 1869, 'METRO_14'),
+(1757, 1964, 'METRO_14'), (1955, 1964, 'METRO_14'),
+(1955, 2068, 'METRO_14'), (2068, 1166828, 'METRO_14'),
+(1166824, 1166826, 'METRO_14'), (1166826, 1166828, 'METRO_14')]
+
+Rajouter au réseau les données de la ligne de métro 3b:
+
+>>> charger_donnees(reseau, "METRO_3b.txt")
+
+Afficher les identifiants des sommets:
+
+>>> sorted(reseau.sommets())
+[1659, 1718, 1722, 1752, 1757, 1783, 1869, 1955, 1964, 2068, 1166824, 1166826, 1166828]
+
+Afficher les arêtes:
+
+>>> sorted(reseau.aretes())  # doctest: +NORMALIZE_WHITESPACE
+[(1659, 1783, 'METRO_3b'), (1718, 1752, 'METRO_3b'),
+(1718, 1783, 'METRO_3b'), (1722, 1869, 'METRO_14'),
+(1757, 1869, 'METRO_14'), (1757, 1964, 'METRO_14'),
+(1955, 1964, 'METRO_14'), (1955, 2068, 'METRO_14'),
+(2068, 1166828, 'METRO_14'), (1166824, 1166826, 'METRO_14'),
+(1166826, 1166828, 'METRO_14')]
+
